@@ -1,0 +1,11 @@
+{
+  "name": "xiaonuo-ingress",
+  "pages_build_output_dir": "./public",
+  "compatibility_date": "2026-07-01",
+  "services": [
+    {
+      "binding": "RELAY_SERVICE",
+      "service": "xiaonuo-device-relay"
+    }
+  ]
+}

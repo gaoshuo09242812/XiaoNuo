@@ -1,0 +1,48 @@
+Source: https://raw.githubusercontent.com/larryli/u8g2_wqy/master/bdf/wenquanyi_12pt.bdf
+
+COMMENT ========================================================== 
+COMMENT                Wen Quan Yi Bitmap Song 
+COMMENT ----------------------------------------------------------
+COMMENT Summary:
+COMMENT 
+COMMENT     	Authors  : WenQuanYi Contributors
+COMMENT     	Webpage  : http://wenq.org/en/
+COMMENT     	Font Name: WenQuanYi Bitmap Song
+COMMENT     	Version  : 0.9.9.8
+COMMENT     	Release  : 8
+COMMENT     	Copyright: (C)2004-2010, WenQuanYi Project 
+COMMENT     		   Board of Trustees and Qianqian Fang
+COMMENT     	License  : GPL v2 (with font embedding exception)
+COMMENT 
+COMMENT           May the Font be with you, forever!
+COMMENT ----------------------------------------------------------
+COMMENT WenQuanYi bitmap fonts include all 20,932 Unicode 5.2 
+COMMENT CJK Unified Ideographs (U4E00 - U9FA5) and 6,582 
+COMMENT CJK Extension A characters (U3400 - U4DB5) at 
+COMMENT 5 different pixel sizes (9pt-12X12, 10pt-13X13, 
+COMMENT 10.5pt-14x14, 11pt-15X15 and 12pt-16x16 pixel).
+COMMENT Use of this bitmap font for on-screen display of Chinese 
+COMMENT (traditional and simplified) in web pages and elsewhere 
+COMMENT eliminates the annoying "blurring" problems caused by 
+COMMENT insufficient "hinting" of anti-aliased vector CJK fonts. 
+COMMENT In addition, Latin characters, Japanese Kanas and 
+COMMENT Korean Hangul glyphs (U+AC00~U+D7A3) are also included.
+COMMENT ----------------------------------------------------------
+COMMENT WenQuanYi Contributors:
+COMMENT 
+COMMENT Project Maintainer: Qianqian Fang(fangq<at>nmr.mgh.harvard.edu)
+COMMENT
+COMMENT Major contributors: wanghong, tchaikov,ailantian,niqiu,fiag
+COMMENT                     caiqian,fundawang
+COMMENT Other contributors: activeion,amadeoh,BabyPBC,BenBear,  
+COMMENT                     brep,chaoslawful,DannyZeng,farm,fiag,keykeen,
+COMMENT                     liyi,lucifer,nilarcs,niqiu,pangwa,pathfinder,
+COMMENT                     pinker,PONY,pupilzeng,shhky,stid,wuler.lv,
+COMMENT                     xnuxmwx,namespace,leftstand,MarkLam,buick,
+COMMENT                     liqian,qinling,Seeker,xiaoma,ZaiJianQingRen,
+COMMENT 		    SiCengXiangShi,the_owl,whppc,eka,failsafe,
+COMMENT                     musiccow,Blueelf,lenovox,udi,leal
+COMMENT ----------------------------------------------------------
+COMMENT This file: WenQuanYi Bitmap Song 12pt medium
+COMMENT Created by Qianqian Fang (fangq<at>nmr.mgh.harvard.edu)
+COMMENT ----------------------------------------------------------

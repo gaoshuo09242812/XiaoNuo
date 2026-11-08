@@ -1,0 +1,11 @@
+{
+  "upstream_font": "u8g2_font_wqy12_t_gb2312a",
+  "upstream_sha256": "c3417f7c4b8bffe714fd58d986a039f3b96d4e2417001fd8f35c00dbea65b1cf",
+  "upstream_bytes": 109189,
+  "subset_bytes": 2230,
+  "captions": "显示测试请说话准备中收音完成我在已停止识别思考回复联网连接校时",
+  "all_original_ascii_preserved": true,
+  "unicode_glyphs": 31,
+  "glyph_records_identical": true,
+  "subset_sha256": "9b84606f7d106f8c9ce59c28cfc80aa4c6fbd9501729ec09b828d17abe97f3da"
+}

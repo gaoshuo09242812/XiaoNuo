@@ -1,0 +1,11 @@
+{
+  "name": "xiaonuo-device-relay",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-07-01",
+  "workers_dev": true,
+  "preview_urls": false,
+  "observability": { "enabled": false },
+  "durable_objects": { "bindings": [{ "name": "RELAY", "class_name": "DeviceRelay" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["DeviceRelay"] }],
+  "vars": { "HOST_TOKEN_SHA256": "", "DEVICE_HASHES": "[]" }
+}
