@@ -39,6 +39,14 @@ class WakeGateTests(unittest.TestCase):
             self.assertEqual(self.gate.decide(recognition('小糯',value),'a').status,'ignored')
         words=[{'word':'小诺','confidence':.2},{'word':'今天','confidence':1}]
         self.assertEqual(self.gate.decide(recognition('小诺今天开心',words=words),'a').status,'ignored')
+    def test_confirmed_wake_opens_local_followup_without_routing_misheard_text(self):
+        confirmed = recognition('小诺小莫', .65) | {'wake_name_confirmed': True}
+        self.assertEqual(self.gate.decide(confirmed, 'a', quiet=True).status, 'ignored')
+        result = self.gate.decide(confirmed, 'a')
+        self.assertEqual((result.status, result.text, result.followup_seconds), ('listening', '', 20))
+        self.assertEqual(self.decide('讲个笑话').text, '讲个笑话')
+        self.assertEqual(self.decide('讲个笑话').status, 'ignored')
+
     def test_followup_expiry_cancel_and_device_isolation(self):
         self.decide('小糯');self.now=20
         self.assertEqual(self.decide('你好').status,'ignored')
@@ -89,6 +97,18 @@ class WakeAdapterTests(unittest.TestCase):
             await result['_audio'].aclose()
             self.assertEqual((await self.probe())['_wake_status'],'ignored')
         asyncio.run(run())
+    def test_wake_adapter_uses_local_confirmation_without_chat(self):
+        self.asr.transcribe_wake = lambda pcm: recognition('小莫小末', .66) | {'wake_name_confirmed': True}
+
+        async def run():
+            result = await self.probe()
+            self.assertEqual(result['_wake_status'], 'listening')
+            self.assertEqual(result['reply_text'], '我在呢，你说。')
+            self.assertFalse(self.companion.calls)
+            await result['_audio'].aclose()
+
+        asyncio.run(run())
+
     def test_explicit_wake_can_leave_quiet_but_background_cannot(self):
         async def run():
             self.store.set_quiet(True);self.text='你好'

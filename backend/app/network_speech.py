@@ -159,6 +159,7 @@ class LocalNetworkSpeech:
                 'starts_with_known_name':any(text.startswith(name) for name in names),
                 'contains_known_name':any(name in text for name in names),
                 'word_count':len(words),'word_confidences':word_confidences,
+                'wake_name_confirmed':isinstance(recognition,dict) and recognition.get('wake_name_confirmed') is True,
                 'decision_status':decision.status if decision is not None else 'asr_error',
                 'followup_seconds':decision.followup_seconds if decision is not None else 0,
                 'asr_error':asr_error}
@@ -173,7 +174,8 @@ class LocalNetworkSpeech:
         generation=self.wake_gate.generation()
         def process():
             quiet,revision=self.store.quiet_revision()
-            try:recognition=self.asr.transcribe(pcm)
+            transcribe = getattr(self.asr, 'transcribe_wake', self.asr.transcribe)
+            try:recognition=transcribe(pcm)
             except XiaoNuoError as error:
                 if error.code in {'ASR_EMPTY_AUDIO','ASR_NO_SPEECH_RECOGNIZED'}:
                     self._write_wake_diagnostic(None,None,pcm,error.code)

@@ -32,10 +32,19 @@ class ComputerWakeGate:
             self._generation+=1
             if device is None:self._followup.clear()
             else:self._followup.pop(device,None)
+    def _listen(self, device, now):
+        self._followup[device] = now + 20
+        self._followup.move_to_end(device)
+        while len(self._followup) > 8:
+            self._followup.popitem(last=False)
+        return WakeDecision('listening', followup_seconds=20)
+
     def decide(self,recognition,device,*,quiet=False,generation=None):
         with self._lock:
             if generation is not None and generation!=self._generation:return WakeDecision('ignored')
             now=self.clock();self._followup=OrderedDict((k,v) for k,v in self._followup.items() if now<v)
+            if not quiet and device not in self._followup and recognition.get('wake_name_confirmed') is True:
+                return self._listen(device, now)
             text=recognition.get('text','');confidence=recognition.get('confidence')
             if (not isinstance(text,str) or len(text)>500 or type(confidence) not in {int,float}
                     or not math.isfinite(confidence) or confidence<.7):return WakeDecision('ignored')
@@ -59,9 +68,7 @@ class ComputerWakeGate:
                 self._followup.pop(device,None)
                 if addressed in self.CANCEL:return WakeDecision('cancelled')
                 if addressed:return WakeDecision('accepted',addressed)
-                self._followup[device]=now+20;self._followup.move_to_end(device)
-                while len(self._followup)>8:self._followup.popitem(last=False)
-                return WakeDecision('listening',followup_seconds=20)
+                return self._listen(device, now)
             if quiet:self._followup.pop(device,None);return WakeDecision('ignored')
             if device in self._followup:
                 self._followup.pop(device,None)

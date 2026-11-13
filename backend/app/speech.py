@@ -112,6 +112,12 @@ class VoskASR(ASRProvider):
                 'last_success':self.last_success,'cloud_upload':False}
 
     def transcribe(self,pcm: bytes) -> dict:
+        return self._transcribe(pcm)
+
+    def transcribe_wake(self, pcm: bytes) -> dict:
+        return self._transcribe(pcm, confirm_wake=True)
+
+    def _transcribe(self, pcm: bytes, *, confirm_wake=False) -> dict:
         metrics=audio_statistics(pcm)
         if metrics['ac_rms']<8:
             raise XiaoNuoError('ASR_EMPTY_AUDIO',422)
@@ -120,8 +126,11 @@ class VoskASR(ASRProvider):
         env=dict(os.environ)
         env['PYTHONPATH']=os.pathsep.join([str(self.root/'backend'),str(self.root/'.runtime-libs')])
         env['PYTHONIOENCODING']='utf-8'
+        command = [sys.executable, '-m', 'app.speech_worker', str(self.model)]
+        if confirm_wake:
+            command.append('--confirm-wake')
         try:
-            result=subprocess.run([sys.executable,'-m','app.speech_worker',str(self.model)],input=pcm,
+            result=subprocess.run(command,input=pcm,
                                   capture_output=True,env=env,timeout=20,
                                   creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
         except subprocess.TimeoutExpired:
